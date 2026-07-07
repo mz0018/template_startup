@@ -16,7 +16,9 @@ const App = () => {
       <main>
         <HeroSection />
 
-        <HorizontalSection ref={ref} isVisible={isVisible} />
+        <div className="h-[200dvh]">
+          <HorizontalSection ref={ref} isVisible={isVisible} />
+        </div>
       </main>
 
       <Footer />
