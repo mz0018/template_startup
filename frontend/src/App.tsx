@@ -16,14 +16,14 @@ const App = () => {
       <main>
         <HeroSection />
 
-        <div className="h-[200dvh]">
+        <div className="h-[400vh]">
           <HorizontalSection ref={ref} isVisible={isVisible} />
         </div>
       </main>
 
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
