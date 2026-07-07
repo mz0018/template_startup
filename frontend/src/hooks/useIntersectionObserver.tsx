@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 export const useIntersectionObserver = (options = {}) => {
   const ref = useRef<HTMLElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   //Intersect observer
   useEffect(() => {

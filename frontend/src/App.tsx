@@ -1,22 +1,25 @@
 import { Navbar } from "./components/Navbar/Navbar"
+import { HeroSection } from "./components/sections/HeroSection"
+import { HorizontalSection } from "./components/sections/HorizontalSection"
+import { Footer } from "./components/Footer/Footer"
 import { useIntersectionObserver } from "./hooks/useIntersectionObserver"
 
 const App = () => {
-  const { ref, isVisible, isScrolling } = useIntersectionObserver()
+  const { ref, isVisible, isScrolling } = useIntersectionObserver({
+    threshold: 0.5,
+  });
 
   return (
     <>
       <Navbar isScrolling={isScrolling} />
 
       <main>
-        <section className="bg-red-500 h-screen flex items-center justify-center text-center">
-          Hero dito erp
-        </section>
+        <HeroSection />
 
-        <section className="bg-blue-500 h-screen flex items-center justify-center text-center">
-          How it works? Section
-        </section>
+        <HorizontalSection ref={ref} isVisible={isVisible} />
       </main>
+
+      <Footer />
     </>
   )
 }

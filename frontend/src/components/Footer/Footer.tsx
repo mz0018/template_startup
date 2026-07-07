@@ -1,8 +1,8 @@
 export const Footer = () => {
 
     return (
-        <footer>
-            
+        <footer className="h-screen bg-pink-500">
+            footer
         </footer>
     )
 }
