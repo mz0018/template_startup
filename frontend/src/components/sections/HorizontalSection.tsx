@@ -15,8 +15,8 @@ export const HorizontalSection = ({ ref, isVisible }: HorizontalSectionProps) =>
 
       const scrollAmount = window.scrollY;
 
-      // Adjust the speed here
-      setTranslateX(scrollAmount * 0.5);
+      // Adjust the speed here and the div in App.tsx adjust the dvh
+      setTranslateX(scrollAmount * 0.8);
     };
 
     window.addEventListener("scroll", handleScroll);

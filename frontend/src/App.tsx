@@ -16,7 +16,7 @@ const App = () => {
       <main>
         <HeroSection />
 
-        <div className="h-[400vh]">
+        <div className="h-[800vh]">
           <HorizontalSection ref={ref} isVisible={isVisible} />
         </div>
       </main>
