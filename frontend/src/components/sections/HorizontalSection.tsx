@@ -1,70 +1,104 @@
 import { useEffect, useRef, useState } from "react";
 
-type HorizontalSectionProps = {
-  ref: any;
-  isVisible: boolean;
-};
+export const HorizontalSection = () => {
+  // Wrapper (the tall element)
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-export const HorizontalSection = ({ ref, isVisible }: HorizontalSectionProps) => {
+  // Horizontal content
   const contentRef = useRef<HTMLDivElement>(null);
+
   const [translateX, setTranslateX] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!isVisible) return;
+      if (!wrapperRef.current || !contentRef.current) return;
 
-      const scrollAmount = window.scrollY;
+      // Distance from top of viewport
+      const rect = wrapperRef.current.getBoundingClientRect();
 
-      // Adjust the speed here and the div in App.tsx adjust the dvh
-      setTranslateX(scrollAmount * 0.8);
+      /**
+       * When wrapper reaches top:
+       *
+       * rect.top = 0
+       *
+       * While scrolling:
+       *
+       * rect.top becomes negative
+       *
+       * We convert it into a positive value.
+       */
+      const progress = Math.max(0, -rect.top);
+
+      /**
+       * Total width of all cards
+       */
+      const contentWidth = contentRef.current.scrollWidth;
+
+      /**
+       * Width of the screen
+       */
+      const viewportWidth = window.innerWidth;
+
+      /**
+       * Maximum horizontal movement
+       */
+      const maxTranslate = contentWidth - viewportWidth;
+
+      /**
+       * Never move farther than the last card
+       */
+      const x = Math.min(progress, maxTranslate);
+
+      setTranslateX(x);
     };
 
     window.addEventListener("scroll", handleScroll);
 
+    handleScroll();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isVisible]);
+  }, []);
 
-  useEffect(() => {
-    if (isVisible) {
-      console.log("Horizontal section is active");
-    }
-  }, [isVisible]);
+  /**
+   * Height of the wrapper
+   *
+   * viewport height
+   * +
+   * horizontal distance
+   */
+
+  const sectionHeight = "300vw";
 
   return (
-    <section
-      ref={ref}
-      className="sticky top-0 h-screen overflow-hidden bg-green-500 py-20"
+    <div
+      ref={wrapperRef}
+      style={{
+        height: sectionHeight,
+      }}
     >
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
-        <h2 className="mb-10 text-4xl font-bold text-white">
-          Horizontal Section
-        </h2>
-
+      <section className="sticky top-0 flex h-screen items-center overflow-hidden bg-green-500">
         <div
           ref={contentRef}
-          className="flex gap-6 transition-transform"
+          className="flex gap-6 px-10"
           style={{
             transform: `translateX(-${translateX}px)`,
           }}
         >
-          <article className="min-w-[100vw] rounded-lg bg-white p-6 shadow-lg">
-            <h3 className="text-3xl font-bold">Content One</h3>
-            <p className="mt-4">Lorem ipsum dolor sit amet.</p>
+          <article className="flex h-[70vh] min-w-screen items-center justify-center rounded-lg bg-white text-4xl font-bold">
+            Card One
           </article>
 
-          <article className="min-w-[100vw] rounded-lg bg-white p-6 shadow-lg">
-            <h3 className="text-3xl font-bold">Content Two</h3>
-            <p className="mt-4">Lorem ipsum dolor sit amet.</p>
+          <article className="flex h-[70vh] min-w-screen items-center justify-center rounded-lg bg-white text-4xl font-bold">
+            Card Two
           </article>
 
-          <article className="min-w-[100vw] rounded-lg bg-white p-6 shadow-lg">
-            <h3 className="text-3xl font-bold">Content Three</h3>
-            <p className="mt-4">Lorem ipsum dolor sit amet.</p>
+          <article className="flex h-[70vh] min-w-screen items-center justify-center rounded-lg bg-white text-4xl font-bold">
+            Card Three
           </article>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
