@@ -1,5 +1,6 @@
 import { Navbar } from "./components/Navbar/Navbar";
 import { HorizontalSection } from "./components/sections/HorizontalSection";
+import { Footer } from "./components/Footer/Footer";
 import { useIntersectionObserver } from "./hooks/useIntersectionObserver";
 
 function App() {
@@ -9,24 +10,24 @@ function App() {
   return (
     <>
     <Navbar isScrolling={isScrolling} />
-    <main>
-      {/* Hero */}
-      <section className="flex h-screen items-center justify-center bg-blue-500">
-        <h1 className="text-5xl font-bold text-white">
-          Hero Section
-        </h1>
-      </section>
+    
 
-      {/* Horizontal Scroll */}
-      <HorizontalSection />
+    <div className="relative z-10 mb-[500px]">
+      <main>
+        {/* Hero */}
+        <section className="flex h-screen items-center justify-center bg-blue-500">
+          <h1 className="text-5xl font-bold text-white">
+            Hero Section
+          </h1>
+        </section>
 
-      {/* Next Section */}
-      <section className="flex h-screen items-center justify-center bg-red-500">
-        <h1 className="text-5xl font-bold text-white">
-          Footer Section
-        </h1>
-      </section>
-    </main>
+        {/* Horizontal Scroll */}
+        <HorizontalSection />
+
+      </main>
+    </div>
+
+    <Footer />
     </>
   );
 }
